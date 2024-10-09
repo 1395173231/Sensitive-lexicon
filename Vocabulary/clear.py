@@ -24,5 +24,25 @@ def scan_directory():
         if filename.endswith('.txt'):
             check_file(filename)
 
+def remove_strings_from_file(filename, strings_to_remove):
+    with open(filename, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+
+    with open(filename, 'w', encoding='utf-8') as file:
+        for line in lines:
+            if line.strip() not in strings_to_remove:
+                file.write(line)
+
+def process_files_in_directory(strings_to_remove):
+    current_dir = os.getcwd()
+    for filename in os.listdir(current_dir):
+        if filename.endswith('.txt'):
+            remove_strings_from_file(filename, strings_to_remove)
+            print(f"Processed file: {filename}")
+
 # 执行扫描
 scan_directory()
+
+# 示例：移除指定字符串
+strings_to_remove = ["盘古"]  # 要移除的字符串列表
+process_files_in_directory(strings_to_remove)
