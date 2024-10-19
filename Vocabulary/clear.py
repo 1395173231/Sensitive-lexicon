@@ -40,9 +40,34 @@ def process_files_in_directory(strings_to_remove):
             remove_strings_from_file(filename, strings_to_remove)
             print(f"Processed file: {filename}")
 
-# 执行扫描
-scan_directory()
+def is_pure_letters(line):
+    # 检查是否只包含英文字母（可以包含空白字符）
+    return bool(re.match(r'^[a-zA-Z\s]+$', line.strip()))
 
-# 示例：移除指定字符串
-strings_to_remove = ["盘古"]  # 要移除的字符串列表
-process_files_in_directory(strings_to_remove)
+def remove_pure_letters_from_file(filename):
+    with open(filename, 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+
+    with open(filename, 'w', encoding='utf-8') as file:
+        for line in lines:
+            if not is_pure_letters(line):
+                file.write(line)
+
+def process_files_remove_pure_letters():
+    current_dir = os.getcwd()
+    for filename in os.listdir(current_dir):
+        if filename.endswith('.txt'):
+            remove_pure_letters_from_file(filename)
+            print(f"Removed pure letters from file: {filename}")
+
+# 主程序
+if __name__ == "__main__":
+    # 执行扫描
+    scan_directory()
+
+    # 移除指定字符串
+    strings_to_remove = ["盘古"]  # 要移除的字符串列表
+    process_files_in_directory(strings_to_remove)
+
+    # 移除纯字母行
+    process_files_remove_pure_letters()
