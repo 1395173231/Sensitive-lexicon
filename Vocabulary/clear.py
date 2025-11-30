@@ -66,7 +66,7 @@ if __name__ == "__main__":
     scan_directory()
 
     # 移除指定字符串
-    strings_to_remove = ["猛男","高潮"]  # 要移除的字符串列表
+    strings_to_remove = ["猛男","高潮","集合"]  # 要移除的字符串列表
     process_files_in_directory(strings_to_remove)
 
     # 移除纯字母行
